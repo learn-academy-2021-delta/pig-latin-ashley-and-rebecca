@@ -34,7 +34,11 @@ class App extends Component{
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
-
+//For loop to itterate through user input
+// First if vowels returns === [] then concat currentWord.slice([indexOf(y)])+ currentWord.slice() 0, indexOf(y)] + "ay" 
+//if Else 
+//First condition consonants, identify the index of the 1st vowel, if the[0] 
+//else for no vowels
       // Remember: console.log is your friend :)
 
 
