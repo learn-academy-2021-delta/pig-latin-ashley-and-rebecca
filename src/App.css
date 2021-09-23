@@ -1,5 +1,5 @@
 body {
-  margin: 1rem;
+  /* margin: 1rem; */
   font-family: 'Josefin Sans', sans-serif;
   text-align: center;
 }
@@ -19,7 +19,7 @@ footer {
 }
 
 .butcherPig {
-  width: 12rem;
+  width: 20rem;
 }
 
 .userInput {
@@ -31,8 +31,8 @@ footer {
 }
 
 .inputArea {
-  background-color: #606060;
-  color: #fff;
+  background-color: #ca2298;
+  color: rgb(32, 6, 6);
   border-radius: .5rem;
   padding: 1rem;
 }
@@ -48,4 +48,7 @@ footer {
     padding: 1rem;
     text-align: center;
   }
+}
+.background{
+  background-color:rgb(156, 86, 104);
 }
