@@ -20,30 +20,46 @@ class App extends Component{
   myPigLatinCodeHere = () => {
     // the variable "userInput" will contain the text input from the user modified into an array of words
     // no need to change this variable
-    let userInput = this.state.phrase.split(" ")
+    let userInput = this.state.phrase.split(" ") //array of words: userInput
     console.log("userInput:", userInput)
 
     // now that we have an array of words, we can map over the array and access each word
-    let translatedWordsArray = userInput.map(currentWord => {
+    let translatedWordsArray = userInput.map(value => {
       // ACTION ITEM: use "currentWord" as a starting point for your code
-      console.log("currentWord:", currentWord)
+      console.log("currentWord:", value)
 
-      let vowelsArray = currentWord.split("").filter(vowel => {
+      let vowelsArray = value.split("").filter(vowel => {
         return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
       })
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
-//For loop to itterate through user input
-// First if vowels returns === [] then concat currentWord.slice([indexOf(y)])+ currentWord.slice() 0, indexOf(y)] + "ay" 
-//if Else 
-//First condition consonants, identify the index of the 1st vowel, if the[0] 
-//else for no vowels
+      // i,e: ['alpha', 'through', 'yummy', 'squeal', 'queen', 'fry']
+
+      if(vowelsArray.length === 0){ //no vowel special case ex. fry
+        return value = value.slice(indexOf("y")) + value.slice(0, value.indexOf("y")) + "ay";
+      }
+      else if(){
+        return;
+      }
+      
+      //if else: currentWord contains q - have the split start at the first vowel index instead of the 0 index => concat currentWord.slice(indexOf(e vowelsArray[1]) + currentWord.slice(0, indexOf(+"ay")
+        //queen -> vowels array ['u', 'e', 'e']
+        //squeal
+
+      // if else: test: currentWord[0] != a,e, i, o, u? => return concat: currentWord[0] + currentWord.slice(indexOf(vowelsArray[0])) + "ay"
+
+      // else: test: currentWord[0] = a, e, i, o, u? => return: currentWord + :"way" 
+
+
+
+
+      //First condition consonants, identify the index of the 1st vowel, if the[0] 
+      //else for no vowels
+
       // Remember: console.log is your friend :)
 
-
-      // ACTION ITEM: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
-      return currentWord
+  
     })
 
 
@@ -103,7 +119,7 @@ class App extends Component{
           <button onClick={this.restartGame}>Clear</button>
         </div>
         <p>{this.state.phraseTranslated}</p>
-        <footer>Coded by ~your name here~</footer>
+        <footer>Coded by Ashley and Rebecca</footer>
       </>
     )
   }
