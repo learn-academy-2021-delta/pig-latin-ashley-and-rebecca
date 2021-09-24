@@ -31,7 +31,7 @@ class App extends Component{
       console.log("currentWord:", word)
 
       let vowelsArray = word.split("").filter(vowel => {
-        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"//try refactoring with set and set.has
+        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u" || vowel === "A" || vowel === "E" || vowel === "I" || vowel === "O" || vowel === "U"//try refactoring with set and set.has
       })
       console.log("vowelsArray:", vowelsArray)
 
@@ -54,7 +54,7 @@ class App extends Component{
         //uses regular expressions where / represents the start and end of regexÅ
         //match() w/ g flag: will return the word if it matches (see line 64)
       //added before qu case because under would break the qu case logic
-      else if(word[0].match(/[aeiou]/g)){ //changed
+      else if(word[0].match(/[aeiouAEIOU]/g)){ //changed
       //if first char is a vowel, return the vowel in an array => equals true 
         console.log("starts with vowel"); //check
         return word + "way";
@@ -62,7 +62,7 @@ class App extends Component{
       }
 
       //third case - words that begin with qu or qu as first syllable
-      else if(vowelsArray[0]=== "u" && word[word.indexOf("u")-1] === "q"){
+      else if(vowelsArray[0]=== "u" && word[word.indexOf("u")-1] === "q" ||vowelsArray[0]=== "U" && word[word.indexOf("U")-1] === "Q" ){
       //tests to see if word has qu
         console.log("qu case"); //check
         return word.slice(word.indexOf(vowelsArray[1])) + word.slice(0, word.indexOf(vowelsArray[1])) + "ay";
@@ -70,12 +70,13 @@ class App extends Component{
       }
       
       //third case - starts with consonants
-      else if (!word[0].match(/[aeiou]/g)){ //changed
+      else if (!word[0].match(/[aeiouAEIOU]/g)){ //changed
       //tests if first char is consonant )(!vowel)
         console.log("starts with consonant"); //check
         return word.slice(word.indexOf(vowelsArray[0])) + word.slice(0, word.indexOf(vowelsArray[0])) + "ay";
         //reassign word: (slice of word from first vowel to end of word + beg of word to first vowel + ay)
       }
+    
       
       //catch all for errors
       else{
@@ -141,9 +142,11 @@ class App extends Component{
           <button onClick={this.setUpPreventDefault}>Submit</button>
           <button onClick={this.restartGame}>Clear</button>
         </div>
+
         <p>{this.state.phraseTranslated}</p>
         <footer>Coded by Ashley and Rebecca</footer>
         </div>
+  
         </>
     )
   }
