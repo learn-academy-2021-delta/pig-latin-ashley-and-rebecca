@@ -10,7 +10,7 @@ class App extends Component{
       // "phrase" is the text entered by the user - right now there are test words hard coded to make the process of testing your code faster and easier
       // ACTION ITEM: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
       phrase: "",
-      // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button
+      // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button (test: alpha through yummy squeal queen fry)
       phraseTranslated: "This is where your translated sentence will appear."
     }
   }
@@ -18,10 +18,11 @@ class App extends Component{
   // The "myPigLatinCodeHere" function is where you will put your logic to convert the sentence entered by the user to Pig Latin
 
   myPigLatinCodeHere = () => {
-    // the variable "userInput" will contain the text input from the user modified into an array of words
+    
     // no need to change this variable
-
-    let userInput = this.state.phrase.split(" ") //array of words: userInput
+    // the variable "userInput" will contain the text input from the user modified into an array of words
+    // i,e: ['alpha', 'through', 'yummy', 'squeal', 'queen', 'fry']
+    let userInput = this.state.phrase.split(" ") 
     console.log("userInput:", userInput)
 
     // now that we have an array of words, we can map over the array and access each word
@@ -30,44 +31,53 @@ class App extends Component{
       console.log("currentWord:", value)
 
       let vowelsArray = value.split("").filter(vowel => {
-        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
+        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"//try refactoring with set and set.has
       })
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
-      // i,e: ['alpha', 'through', 'yummy', 'squeal', 'queen', 'fry']
-
-      if(vowelsArray.length === 0){ //no vowel special case ex. fry
-         value = value.slice(value.indexOf("y")) + value.slice(0, value.indexOf("y")) + "ay";
+  
+      //first case - no vowels
+      if(vowelsArray.length === 0){ 
+      //checks to see if vowelsArray is empty
+        console.log("no vowels"); //check
+        return value.slice(value.indexOf("y")) + value.slice(0, value.indexOf("y")) + "ay";
+        //reassign value: (slice of word from y to end of word + beginning of word to letter before y + ay)
       }
-         //if else: value contains q - have the split start at the first vowel index instead of the 0 index => concat value.slice(indexOf(e vowelsArray[1]) + value.slice(0, indexOf(+"ay")
-              //queen -> vowels array ['u', 'e', 'e']
-        //squeal
-    
-      else if(vowelsArray[0]=== "u" && value [value.indexOf("u")-1] === "q"){
-         value = value.slice(value.indexOf(vowelsArray[1])) + value.slice(0, value.indexOf(vowelsArray[1])) + "ay"
+
+      //second case - starts with vowels
+        //uses regular expressions where / represents the start and end of regexÅ
+        //match() w/ g flag: will return the value if it matches (see line 64)
+      //added before qu case because under would break the qu case logic
+      else if(value[0].match(/[aeiou]/g)){ //changed
+      //if first char is a vowel, return the vowel in an array => equals true 
+        console.log("starts with vowel"); //check
+        return value + "way";
+        //reassign value with way at end
       }
-        // if else: test: value[0] != a,e, i, o, u? => return concat: value[0] + value.slice(indexOf(vowelsArray[0])) + "ay"
 
-        else if (value[0] !== "a" && value[0]!== "e" && value[0]!== "i" && value[0]!== "o" && value[0]!== "u"){
-      value = value.slice(value.indexOf(vowelsArray[0])) + value.slice(0, value.indexOf(vowelsArray[0])) + "ay"
-
-        }
-         // else: test: value[0] = a, e, i, o, u? => return: value + :"way" 
-        else if(value[0] === "a" || value[0]=== "e" || value[0]=== "i" || value[0]=== "o" || value[0]=== "u"){
-          value = value + "way"
-        }
-
-        else{
-          value = "ERROR"
-        }
+      //third case - words that begin with qu or qu as first syllable
+      else if(vowelsArray[0]=== "u" && value[value.indexOf("u")-1] === "q"){
+      //tests to see if word has qu
+        console.log("qu case"); //check
+        return value.slice(value.indexOf(vowelsArray[1])) + value.slice(0, value.indexOf(vowelsArray[1])) + "ay";
+        //reassign value: (slice of word from second vowel to end of word + beg of word to u + ay)
+      }
       
-    
-      // Remember: console.log is your friend :)
+      //third case - starts with consonants
+      else if (!value[0].match(/[aeiou]/g)){ //changed
+      //tests if first char is consonant )(!vowel)
+        console.log("starts with consonant"); //check
+        return value.slice(value.indexOf(vowelsArray[0])) + value.slice(0, value.indexOf(vowelsArray[0])) + "ay";
+        //reassign value: (slice of word from first vowel to end of word + beg of word to first vowel + ay)
+      }
+      
+      //catch all for errors
+      else{
+        return "ERROR"
+      }
 
-  return value
     })
-
 
     // joining the array back to a string of translated words
     // no need to change this variable
@@ -106,8 +116,9 @@ class App extends Component{
       <>
       <div className = "background">
         <h1>Pig Latin Translator</h1>
+        {/* change src (ln 122) and (ln3) to import different photos with different names*/}
         <img
-          src={butcherPig}
+          src={butcherPig} 
           alt="pig with butcher cut names in pig latin"
           className="butcherPig"
         />
