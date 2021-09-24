@@ -26,50 +26,55 @@ class App extends Component{
     console.log("userInput:", userInput)
 
     // now that we have an array of words, we can map over the array and access each word
-    let translatedWordsArray = userInput.map(value => {
+    let translatedWordsArray = userInput.map(word => {
       // ACTION ITEM: use "currentWord" as a starting point for your code
-      console.log("currentWord:", value)
+      console.log("currentWord:", word)
 
-      let vowelsArray = value.split("").filter(vowel => {
+      let vowelsArray = word.split("").filter(vowel => {
         return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"//try refactoring with set and set.has
       })
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
-  
+      
+      // Other special characters to consider @#$%^* " " ( ) &
+      //!?,.:; => returned at the end of the word
+      //'- => leave as is
+
+
       //first case - no vowels
       if(vowelsArray.length === 0){ 
       //checks to see if vowelsArray is empty
         console.log("no vowels"); //check
-        return value.slice(value.indexOf("y")) + value.slice(0, value.indexOf("y")) + "ay";
-        //reassign value: (slice of word from y to end of word + beginning of word to letter before y + ay)
+        return word.slice(word.indexOf("y")) + word.slice(0, word.indexOf("y")) + "ay";
+        //reassign word: (slice of word from y to end of word + beginning of word to letter before y + ay)
       }
 
       //second case - starts with vowels
         //uses regular expressions where / represents the start and end of regexÅ
-        //match() w/ g flag: will return the value if it matches (see line 64)
+        //match() w/ g flag: will return the word if it matches (see line 64)
       //added before qu case because under would break the qu case logic
-      else if(value[0].match(/[aeiou]/g)){ //changed
+      else if(word[0].match(/[aeiou]/g)){ //changed
       //if first char is a vowel, return the vowel in an array => equals true 
         console.log("starts with vowel"); //check
-        return value + "way";
-        //reassign value with way at end
+        return word + "way";
+        //reassign word with way at end
       }
 
       //third case - words that begin with qu or qu as first syllable
-      else if(vowelsArray[0]=== "u" && value[value.indexOf("u")-1] === "q"){
+      else if(vowelsArray[0]=== "u" && word[word.indexOf("u")-1] === "q"){
       //tests to see if word has qu
         console.log("qu case"); //check
-        return value.slice(value.indexOf(vowelsArray[1])) + value.slice(0, value.indexOf(vowelsArray[1])) + "ay";
-        //reassign value: (slice of word from second vowel to end of word + beg of word to u + ay)
+        return word.slice(word.indexOf(vowelsArray[1])) + word.slice(0, word.indexOf(vowelsArray[1])) + "ay";
+        //reassign word: (slice of word from second vowel to end of word + beg of word to u + ay)
       }
       
       //third case - starts with consonants
-      else if (!value[0].match(/[aeiou]/g)){ //changed
+      else if (!word[0].match(/[aeiou]/g)){ //changed
       //tests if first char is consonant )(!vowel)
         console.log("starts with consonant"); //check
-        return value.slice(value.indexOf(vowelsArray[0])) + value.slice(0, value.indexOf(vowelsArray[0])) + "ay";
-        //reassign value: (slice of word from first vowel to end of word + beg of word to first vowel + ay)
+        return word.slice(word.indexOf(vowelsArray[0])) + word.slice(0, word.indexOf(vowelsArray[0])) + "ay";
+        //reassign word: (slice of word from first vowel to end of word + beg of word to first vowel + ay)
       }
       
       //catch all for errors
